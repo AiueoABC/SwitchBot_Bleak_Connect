@@ -1,22 +1,17 @@
-# BleakによるSwitchBotとの通信(Windows10)
-Window10でのSwitchBotとのBLE通信の方法を記述します。言語はpython
-とはいえSwitchBotのための特別な仕様があるわけではなく、Bleakを使用してSwitchBotに接続して命令を送信しているだけです
-# 要件
-* OS Windows10
-* python 3.7.6
-* bleak 0.7.1
-* Bluetooth_Dongle 5.0
+# Control SwitchBot using Bleak (for Windows10 compatibility)
+Control SwitchBot from Windows10 using BLE library, bleak, on Python.
 
-# 初期設定
-Window10がBlueTooth通信ができる状態である必要があります。Bluetoothドングルを使用する場合、以下URLからドライバをダウンロードしてください。
-### https://www.dropbox.com/s/vcvemz9rwr711rl/5.zip?dll=0
+## Requirements
+* OS Windows10, version 16299 (Fall Creators Update) or greater
+* python 3.7.6 or greater
+* bleak 0.7.1 or greater, `pip install bleak`
+* Bluetooth support v5.0 or higher
 
-以下のpipコマンドを実行してbleakライブラリを取得します
+Make sure your Window can access to bluetooth device and ready to communicate via BLE.
 
-    pip install bleak
+## Contents
 
-[Discover.py]を実行し、周辺のBluetooth機器、つまりSwitchBotを探します。見つかった場合にはSwitchBotのMacアドレスが表示されます。それを基に[Bleak_Connect_SwitchBot.py]の中の[address]の値を書き換えてください
+- [Discover.py]: This will find bluetooth devices available. SwitchBot is shown as some special devices, take a note of that MAC address.
+- [Bleak_Connect_SwitchBot.py]: Main script to control SwitchBot. Use MAC address found with above script. * [address] value need to be changed.
 
-    
-    address = " " #各自のSwitchBotのMacアドレスに書き換える
 
