@@ -1,12 +1,30 @@
 import asyncio
 from bleak import BleakClient
 import time
+import threading
+from queue import Queue
 
 # Use MAC Address of your SwitchBot 
-# [how to find?] Use discover.py or take a note of the address shown in setting app 
+# [how and where to find?] Use discover.py or take a note of the address shown in setting app 
 address = " "
 # UUID.SwitchBot
 UUID = "cba20002-224d-11e6-9fb8-0002a5d5c51b"
+
+
+cmd_q = Queue()
+
+
+def cmd_sender():
+    while True:
+        temp = input("* if error occured, just type 'exit' and hit Enter")
+        cmd_q.put(temp)
+        # YOU CAN PUT YOUR OWN CODE HERE WORKING WITH SWITCH
+        if temp == "exit":
+            break
+
+
+p = threading.Thread(target=cmd_putter)
+p.start()
 
 
 async def run(address, loop):
@@ -22,8 +40,8 @@ async def run(address, loop):
         print(y)
         print("Connected, Enter your command\nCommand Available => press,on,off,exit")
         while True:
-            # command input
-            command = input()
+            # get command
+            command = cmd_q.get()
             if command == "press":
                 write_byte = bytearray(b'\x57\x01\x00')
             elif command == "on":
